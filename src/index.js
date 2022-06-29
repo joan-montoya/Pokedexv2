@@ -3,11 +3,28 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Pokemons from './routes/pokemons';
+import Pokemon from './routes/pokemon';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element= { <App /> } >
+          <Route path="/pokemons" element = {<Pokemons/>}>
+            <Route path=":pokemonID" element = { <Pokemon/> } />
+          </Route>
+          <Route path="*" element = {
+            <main style={{ padding: "1rem" }}>
+              <p>There's nothing here</p>
+            </main>
+          }/>
+        </Route>
+      </Routes>    
+    </BrowserRouter>
   </React.StrictMode>
 );
 
