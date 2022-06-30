@@ -7,22 +7,14 @@ export default function Pokemons(){
     const [result, setResult] = useState([]);
     const [poke, setPoke] = useState([]);
     const [load, setLoad] = useState('true');
-    const [info, setInf] = useState('true');
-    const [nombre, setNombre] = useState("");
-    const [imagen, setImage] = useState("");
-    const [imagenT, setImageT] = useState("");
-    const [color, setColor] = useState("");
     const [pokearr, setPokA] = useState([]);
     const [inicio, setIn] = useState(0);
     const [pagina, setPag] = useState(1);
     const [Final, setFin] = useState(9);
-    const [posicion, setPo] = useState(0);
-
-
     const arr = [];
 
     useEffect(() => {
-        fetch('https://pokeapi.co/api/v2/pokemon/?limit=200')
+        fetch('https://pokeapi.co/api/v2/pokemon/?limit=400')
             .then((response) => response.json())
             .then((data) => setResult(
                 data.results.map((item) => {
@@ -37,10 +29,10 @@ export default function Pokemons(){
     setTimeout(() => {
         setLoad(false);
         document.body.style.backgroundColor = '#a5e7fa';
-    }, 1000);
+    }, 2000);
 
      function llamar(){
-      if(Final >= 199){
+      if(Final >= 399){
         setFin(9);
         setIn(0);
       }
@@ -54,61 +46,51 @@ export default function Pokemons(){
             pokearr.push(poke[i]);
           }
         }else{
-          setPokA([])
-          
+          setPokA([]);
         }
       }
     }
 
-    
-
-    function barral(val){
-      setImage(pokearr[val].sprites.other.dream_world.front_default);
-      setImageT(pokearr[val].sprites.back_default);
-      setNombre(pokearr[val].name.toUpperCase());
-      setColor(pokearr[val].types[0].type.name);
-      setPo(val);
+    if(pagina < 1){
+      setPag(1);
     }
+
       return (
         <main>
            <div className='pokegallery'>
-           <h1>POKEDEX POKE API Pagina: {pagina}</h1>
-           
+           <h1 className='pagina'>Pagina: {pagina}</h1>
+            <div className='botona' 
+              onClick={() => {setIn(inicio - 9); setFin(Final - 9); 
+              setPag(pagina - 1)} }><h3 className='order'>Atras</h3>
+            </div>
+            <div className='botons' 
+              onClick={() => {setIn(inicio + 10); setFin(Final + 10); 
+              setPag(pagina  + 1)} }><h3 className='order'>Siguiente</h3>
+            </div>
+          
+          <br></br>
             {llamar()}
             { load ? (
               <p>Loading...</p>
             ) :  (
-
-              
-    
               pokearr.map((img, i) => (
                 <div className='containertotal'>
-                    <Link to={"/pokemons/" + pokearr[i].id}>
-                <div className='card' id={pokearr[i].types[0].type.name} key={img.id} name={pokearr[i].types[0].type.name} onClick={() => {setInf(false);barral(i)}}>
-                    <p className='ids'>Id: {pokearr[i].id} </p>
-                    <p className='ids1'>Type: {pokearr[i].types[0].type.name.toUpperCase()}</p>
-                  <br></br>
-                  <h3><b>{pokearr[i].name.toUpperCase()}</b></h3>
-                  <img className='imagen' src={pokearr[i].sprites.other.dream_world.front_default}/>
+                  <Link to={"/pokemons/" + pokearr[i].id}>
+                    <div className='card' id={pokearr[i].types[0].type.name} 
+                        key={img.id} name={pokearr[i].types[0].type.name}>
+                      <p className='ids'>Id: {pokearr[i].id} </p>
+                      <p className='ids1'>Type: {pokearr[i].types[0].type.name.toUpperCase()}</p>
+                      <br></br>
+                    <h3><b>{pokearr[i].name.toUpperCase()}</b></h3>
+                    <img className='imagen' src={pokearr[i].sprites.other.dream_world.front_default}/>
+                    </div>
+                  </Link>
                 </div>
-                </Link>
-                </div>
-                
-                
               ))
             )}
             <Outlet/>
-            
-            
           </div>
-            <div className='botona' onClick={() => {setIn(inicio - 9); setFin(Final - 9); setPag(pagina - 1)} }><h3 className='order'>Atras</h3></div>
-            
-            <div className='botons' onClick={() => {setIn(inicio + 10); setFin(Final + 10); setPag(pagina  + 1)} }><h3 className='order'>Siguiente</h3></div>
-          
-          </main>
-
-          
-          
+        </main>  
       );
     }
 

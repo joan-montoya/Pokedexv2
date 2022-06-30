@@ -1,30 +1,24 @@
-import Pokemons from "./pokemons"
-import { barral } from "./pokemons" 
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-import { getPokemons } from "./pokemons";
 
 export default function Pokemon() {
 
     const [result, setResult] = useState([]);
     const [poke, setPoke] = useState([]);
     const [load, setLoad] = useState('true');
-    const [info, setInf] = useState('true');
     const [nombre, setNombre] = useState("");
     const [imagen, setImage] = useState("");
     const [imagenT, setImageT] = useState("");
     const [color, setColor] = useState("");
-    const [pokearr, setPokA] = useState([]);
-    const [inicio, setIn] = useState(0);
-    const [Final, setFin] = useState(9);
     const [posicion, setPo] = useState(0);
     let params = useParams();
+    
 
 
     const arr = [];
 
     useEffect(() => {
-        fetch('https://pokeapi.co/api/v2/pokemon/?limit=200')
+        fetch('https://pokeapi.co/api/v2/pokemon/?limit=400')
             .then((response) => response.json())
             .then((data) => setResult(
                 data.results.map((item) => {
@@ -39,12 +33,20 @@ export default function Pokemon() {
     setTimeout(() => {
         setLoad(false);
         document.body.style.backgroundColor = '#a5e7fa';
-        setImage(poke[params.pokemonID-1].sprites.other.dream_world.front_default);
-        setImageT(poke[params.pokemonID-1].sprites.back_default);
-        setNombre(poke[params.pokemonID-1].name.toUpperCase());
-        setColor(poke[params.pokemonID-1].types[0].type.name);
-        setPo(params.pokemonID-1);
-    }, 1500);
+        if(load == false){
+          for(var i = 0; i <= poke.length; i++ ){
+            if(poke[i].id == params.pokemonID){
+              setPo(i);
+              setImage(poke[i].sprites.other.dream_world.front_default);
+              setImageT(poke[i].sprites.back_default);
+              setNombre(poke[i].name.toUpperCase());
+              setColor(poke[i].types[0].type.name);
+            }
+          } 
+        }
+    }, 2000);
+
+    
 
     return (
         <div className="barralateral">
@@ -72,6 +74,5 @@ export default function Pokemon() {
               </div>
             )}
         </div>
-        
     )
 }

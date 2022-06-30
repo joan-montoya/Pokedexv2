@@ -1,11 +1,34 @@
 .App {
   text-align: center;
-  background-color: #a5e7fa;
+  background: linear-gradient(to bottom right, rgb(255, 255, 255), rgb(255, 0, 0));
+}
+.navs{
+  position: relative;
+  top: -25px;
+  background: linear-gradient(to bottom right, rgb(255, 255, 255), rgb(255, 0, 0));
 }
 
 .containertotal{
   width: 200px;
   display: inline;
+}
+.nav{
+  position: relative;
+  display: inline-block;
+  top: -30px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: rgba(255, 255, 255, 0.267);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  height: 40px;
+  width: 250px;
+  margin: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+.nav:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.356);
 }
 
 .boton{
@@ -127,10 +150,11 @@
   color: white;
 }
 .botona{
-  position:fixed; bottom:0; z-index:999999;
-  height: 24%;
-  width: 13%;
-  left: 4%;
+  position: relative;
+  display: inline-block;
+  height: 45px;
+  width: 120px;;
+  left: 20px;
   border-radius: 8px;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.247);
@@ -154,17 +178,43 @@
   margin-top: 10px;
 
 }
+.pagina{
+  position: absolute;
+  top: -30px;
+  left: 640px
+}
+.foto{
+  margin: 20px;
+  width: 200px;
+  border-radius: 160px;
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.226)
+}
+.cardinfo{
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.418);
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.87);
+  width: 900px;
+  height: 400px;
+  left: 60px;
+  border-radius: 30px;
+}
+.infomia{
+  top:0px;
+  position: absolute;
+  left: 250px;
+}
 .order{
-  margin-top: 36%;
+  margin-top: 10px;
 }
 .botona:hover {
   box-shadow: 0 8px 16px 0 rgba(10, 10, 10, 0.664);
 }
 .botons{
-  position:fixed; bottom:0; z-index:999999;
-  height: 24%;
-  width: 13%;
-  right: 40%;
+  position: relative;
+  display: inline-block;
+  height: 45px;
+  width: 120px;
+  left: 480px;
   border-radius: 8px;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.247);
